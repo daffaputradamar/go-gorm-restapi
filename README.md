@@ -16,6 +16,8 @@ $ go get -u github.com/go-sql-driver/mysql
 $ go get -u github.com/jinzhu/gorm
 ```
 
+Don't forget to change the import to your github username
+
 ```bash
 $ go build
 

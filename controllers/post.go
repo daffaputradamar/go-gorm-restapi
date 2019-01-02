@@ -9,7 +9,9 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func Index(w http.ResponseWriter, r *http.Request) {
+type PostController struct{}
+
+func (p PostController) Index(w http.ResponseWriter, r *http.Request) {
 	db := config.ConnectDB()
 	var posts []models.Post
 	db.Find(&posts)
@@ -17,7 +19,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(posts)
 }
 
-func Show(w http.ResponseWriter, r *http.Request) {
+func (p PostController) Show(w http.ResponseWriter, r *http.Request) {
 	db := config.ConnectDB()
 	params := mux.Vars(r)
 	var post models.Post
@@ -26,7 +28,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(post)
 }
 
-func Store(w http.ResponseWriter, r *http.Request) {
+func (p PostController) Store(w http.ResponseWriter, r *http.Request) {
 	db := config.ConnectDB()
 	var post models.Post
 	_ = json.NewDecoder(r.Body).Decode(&post)
@@ -35,7 +37,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(post)
 }
 
-func Update(w http.ResponseWriter, r *http.Request) {
+func (p PostController) Update(w http.ResponseWriter, r *http.Request) {
 	db := config.ConnectDB()
 	params := mux.Vars(r)
 	var post models.Post
@@ -46,7 +48,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(post)
 }
 
-func Destroy(w http.ResponseWriter, r *http.Request) {
+func (p PostController) Destroy(w http.ResponseWriter, r *http.Request) {
 	db := config.ConnectDB()
 	params := mux.Vars(r)
 	var post models.Post

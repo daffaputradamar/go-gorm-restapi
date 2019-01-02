@@ -11,14 +11,19 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var postController controllers.PostController
+
 func handleRequest() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/api/posts", controllers.Index).Methods("GET")
-	r.HandleFunc("/api/posts/{id}", controllers.Show).Methods("GET")
-	r.HandleFunc("/api/posts", controllers.Store).Methods("POST")
-	r.HandleFunc("/api/posts/{id}", controllers.Update).Methods("PUT")
-	r.HandleFunc("/api/posts/{id}", controllers.Destroy).Methods("DELETE")
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello World")
+	})
+	r.HandleFunc("/api/posts", postController.Index).Methods("GET")
+	r.HandleFunc("/api/posts/{id}", postController.Show).Methods("GET")
+	r.HandleFunc("/api/posts", postController.Store).Methods("POST")
+	r.HandleFunc("/api/posts/{id}", postController.Update).Methods("PUT")
+	r.HandleFunc("/api/posts/{id}", postController.Destroy).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8081", r))
 }

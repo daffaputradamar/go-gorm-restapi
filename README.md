@@ -21,6 +21,7 @@ $ go build
 
 $ ./go-gorm-restapi
 ```
+And open localhost:8081 in your browser
 
 ## Endpoints
 ### Get All Posts
